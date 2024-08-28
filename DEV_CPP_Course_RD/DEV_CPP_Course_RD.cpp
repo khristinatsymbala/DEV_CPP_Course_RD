@@ -28,9 +28,14 @@ int main()
             health += result_impact;
 
             if (health < 1 && health > 0) {
-                health = 1; 
+                health = 1;
             }
+        } else {
+            std::cout << "No impact " << std::endl;
         }
+
+        std::cout << "The hero has died." << std::endl;
+        return 0;
     }
 
 }
