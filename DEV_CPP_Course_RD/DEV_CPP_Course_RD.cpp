@@ -7,15 +7,32 @@ int main()
 {
     float health{ 0 };
 
-    std::cout << "Enter the hero`s health: " << std::endl;
-    std::cin >> health;
+    do {
+        std::cout << "Enter the hero`s health: " << std::endl;
+        std::cin >> health;
+
+        if (health < 0) {
+            std::cout << "Please enter a non-negative health." << std::endl;
+        }
+
+    }while(health < 0);
+
 
     while (health > 0) {
 
         float item_distance, item_impact;
 
-        std::cout << "Enter the distance to item : " << std::endl;
-        std::cin >> item_distance;
+        do
+        {
+            std::cout << "Enter the distance to item : " << std::endl;
+            std::cin >> item_distance;
+
+            if (item_distance < 0)
+            {
+                std::cout << "Please enter a non-negative health." << std::endl;
+            }
+
+        } while (item_distance < 0);
 
         std::cout << "Enter item impact (damage/healing): " << std::endl;
         std::cin >> item_impact;
@@ -30,6 +47,7 @@ int main()
             if (health < 1 && health > 0) {
                 health = 1;
             }
+
         } else {
             std::cout << "No impact " << std::endl;
         }
