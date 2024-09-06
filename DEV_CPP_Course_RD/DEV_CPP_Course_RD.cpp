@@ -22,11 +22,22 @@ struct ClanInfo {
 		float clan_damage{ 0 };
 		EDamageType damageType;
 	};
+//Prototype func
+ClanInfo InputData();
+ClanInfo PreCreateClan(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new, int damageType_new);
+EDamageType damageType_index(int damage_type_index);
+int main() {
+
+	
+
+
+	return 0;
+}
 
 ClanInfo InputData() {
 	ClanInfo Clan;
 
-	std::cout<< "Enter Clan Name: ";
+	std::cout << "Enter Clan Name: ";
 	std::cin >> Clan.clan_name;
 
 	std::cout << "Enter Clan Numder: ";
@@ -39,7 +50,7 @@ ClanInfo InputData() {
 	std::cin >> Clan.clan_damage;
 
 	int damage_type_index = 0;
-	std::cout << "Select Damage Type (1: Water, 2: Fire, 3: Earth, 4: Wind, 5: Magic): ";
+	std::cout << " Select Damage Type (1: Water, 2: Fire, 3: Earth, 4: Wind, 5: Magic): ";
 	std::cin >> damage_type_index;
 
 	EDamageType damageType = (EDamageType)damage_type_index;
@@ -47,14 +58,22 @@ ClanInfo InputData() {
 	return Clan;
 }
 
+ClanInfo PreCreateClan(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new,int damageType_new)
+{
+	ClanInfo Clan;
+	Clan.clan_name = clan_name_new;
+	Clan.clan_number = class_number_new;
+	Clan.clan_health = clan_health_new;
+	Clan.clan_damage = clan_damage_new;
+	Clan.damageType = damageType_index(damageType_new);
+	return Clan;
+}
 
-
-int main() {
-
+EDamageType damageType_index(int damage_type_index)
+{
 	
-
-
-	return 0;
+	EDamageType damageType = (EDamageType)damage_type_index;
+	return (EDamageType)damage_type_index;
 }
 
 
@@ -86,9 +105,7 @@ int main() {
 
 
 
-
-
-
+///////////////////////Homework 1////////////////////////////////////////
 //int main()
 //{
 //    float health{ 0 };
