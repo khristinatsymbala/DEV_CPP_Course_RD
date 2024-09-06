@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <array>
 
 enum EDamageType {
 	Water = 1,
@@ -14,40 +13,49 @@ enum EDamageType {
 	Magic
 };
 
-struct ClanInfo {
+struct Clan_Member_Info {
 	public:
-		std::string clan_name;
+		std::string clan_member_name;
 		int clan_number{0};
-		float clan_health{ 0 };
-		float clan_damage{ 0 };
+		float clan_member_health{ 0 };
+		float clan_member_damage{ 0 };
 		EDamageType damageType;
 	};
+
+
 //Prototype func
-ClanInfo InputData();
-ClanInfo PreCreateClan(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new, int damageType_new);
+Clan_Member_Info InputData();
+Clan_Member_Info Precreate_Clan_Member(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new, int damageType_new);
 EDamageType damageType_index(int damage_type_index);
+void AddMemberToClan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights, Clan_Member_Info& new_member);
+
 int main() {
 
+
+	std::vector<Clan_Member_Info> clan_Warriors;
+
+	std::vector<Clan_Member_Info> clan_Knights;
 	
 
 
 	return 0;
 }
 
-ClanInfo InputData() {
-	ClanInfo Clan;
+Clan_Member_Info InputData() {
+	Clan_Member_Info Clan;
 
 	std::cout << "Enter Clan Name: ";
-	std::cin >> Clan.clan_name;
+	std::cin >> Clan.clan_member_name;
 
-	std::cout << "Enter Clan Numder: ";
+	std::cout << "Select Clan : (0 - Warriors, 1 - Knights)";
 	std::cin >> Clan.clan_number;
 
+
 	std::cout << "Enter Clan Health: ";
-	std::cin >> Clan.clan_health;
+	std::cin >> Clan.clan_member_health;
 
 	std::cout << "Enter Clan Damage: ";
-	std::cin >> Clan.clan_damage;
+	std::cin >> Clan.clan_member_damage;
 
 	int damage_type_index = 0;
 	std::cout << " Select Damage Type (1: Water, 2: Fire, 3: Earth, 4: Wind, 5: Magic): ";
@@ -58,22 +66,38 @@ ClanInfo InputData() {
 	return Clan;
 }
 
-ClanInfo PreCreateClan(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new,int damageType_new)
+Clan_Member_Info Precreate_Clan_Member(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new,int damageType_new)
 {
-	ClanInfo Clan;
-	Clan.clan_name = clan_name_new;
+	Clan_Member_Info Clan;
+	Clan.clan_member_name = clan_name_new;
 	Clan.clan_number = class_number_new;
-	Clan.clan_health = clan_health_new;
-	Clan.clan_damage = clan_damage_new;
+	Clan.clan_member_health = clan_health_new;
+	Clan.clan_member_damage = clan_damage_new;
 	Clan.damageType = damageType_index(damageType_new);
 	return Clan;
 }
 
 EDamageType damageType_index(int damage_type_index)
 {
-	
 	EDamageType damageType = (EDamageType)damage_type_index;
 	return (EDamageType)damage_type_index;
+}
+
+void AddMemberToClan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights, Clan_Member_Info& new_member)
+{
+	if (new_member.clan_number == 0)
+	{
+		clan_Warriors.push_back(new_member);
+		std::cout << new_member.clan_member_name << " Added to Warriors clan " << std::endl;
+	}
+	else if (new_member.clan_number == 1)
+	{
+		clan_Knights.push_back(new_member);
+		std::cout << new_member.clan_member_name << " Added to Knights clan " << std::endl;
+	}
+	else {
+		std::cout << "No clan with this ID" << std::endl;
+	}
 }
 
 
