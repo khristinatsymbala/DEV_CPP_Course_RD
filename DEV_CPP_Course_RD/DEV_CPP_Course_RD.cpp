@@ -2,61 +2,147 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <array>
 
-int main()
-{
-    float health{ 0 };
+enum EDamageType {
+	Water = 1,
+	Fire,
+	Earth,
+	Wind,
+	Magic
+};
 
-    do {
-        std::cout << "Enter the hero`s health: " << std::endl;
-        std::cin >> health;
+struct ClanInfo {
+	public:
+		std::string clan_name;
+		int clan_number{0};
+		float clan_health{ 0 };
+		float clan_damage{ 0 };
+		EDamageType damageType;
+	};
 
-        if (health < 0) {
-            std::cout << "Please enter a non-negative health." << std::endl;
-        }
+ClanInfo InputData() {
+	ClanInfo Clan;
 
-    }while(health < 0);
+	std::cout<< "Enter Clan Name: ";
+	std::cin >> Clan.clan_name;
 
+	std::cout << "Enter Clan Numder: ";
+	std::cin >> Clan.clan_number;
 
-    while (health > 0) {
+	std::cout << "Enter Clan Health: ";
+	std::cin >> Clan.clan_health;
 
-        float item_distance, item_impact;
+	std::cout << "Enter Clan Damage: ";
+	std::cin >> Clan.clan_damage;
 
-        do
-        {
-            std::cout << "Enter the distance to item : " << std::endl;
-            std::cin >> item_distance;
+	int damage_type_index = 0;
+	std::cout << "Select Damage Type (1: Water, 2: Fire, 3: Earth, 4: Wind, 5: Magic): ";
+	std::cin >> damage_type_index;
 
-            if (item_distance < 0)
-            {
-                std::cout << "Please enter a non-negative health." << std::endl;
-            }
+	EDamageType damageType = (EDamageType)damage_type_index;
 
-        } while (item_distance < 0);
-
-        std::cout << "Enter item impact (damage/healing): " << std::endl;
-        std::cin >> item_impact;
-
-        if (item_distance <= 100)
-        {
-            float result_impact{ 0 };
-
-            result_impact = item_impact * (1 - item_distance / 100);
-            health += result_impact;
-
-            if (health < 1 && health > 0) {
-                health = 1;
-            }
-
-        } else {
-            std::cout << "No impact " << std::endl;
-        }
-
-        std::cout << "The hero has died." << std::endl;
-        return 0;
-    }
-
+	return Clan;
 }
+
+
+
+int main() {
+
+	
+
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//int main()
+//{
+//    float health{ 0 };
+//
+//    do {
+//        std::cout << "Enter the hero`s health: " << std::endl;
+//        std::cin >> health;
+//
+//        if (health < 0) {
+//            std::cout << "Please enter a non-negative health." << std::endl;
+//        }
+//
+//    }while(health < 0);
+//
+//
+//    while (health > 0) {
+//
+//        float item_distance, item_impact;
+//
+//        do
+//        {
+//            std::cout << "Enter the distance to item : " << std::endl;
+//            std::cin >> item_distance;
+//
+//            if (item_distance < 0)
+//            {
+//                std::cout << "Please enter a non-negative health." << std::endl;
+//            }
+//
+//        } while (item_distance < 0);
+//
+//        std::cout << "Enter item impact (damage/healing): " << std::endl;
+//        std::cin >> item_impact;
+//
+//        if (item_distance <= 100)
+//        {
+//            float result_impact{ 0 };
+//
+//            result_impact = item_impact * (1 - item_distance / 100);
+//            health += result_impact;
+//
+//            if (health < 1 && health > 0) {
+//                health = 1;
+//            }
+//
+//        } else {
+//            std::cout << "No impact " << std::endl;
+//        }
+//
+//        std::cout << "The hero has died." << std::endl;
+//        return 0;
+//    }
+//
+//}
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
