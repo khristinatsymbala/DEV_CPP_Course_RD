@@ -23,20 +23,79 @@ struct Clan_Member_Info {
 	};
 
 
-//Prototype func
+///////////////////////////////////////////// Prototype func
+//////////////////// Members
 Clan_Member_Info InputData();
-Clan_Member_Info Precreate_Clan_Member(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new, int damageType_new);
+Clan_Member_Info Precreate_Clan_Member(std::string clan_member_name_new, int class_number_new, float clan_health_new, float clan_damage_new, int damageType_new);
 EDamageType damageType_index(int damage_type_index);
 void AddMemberToClan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights, Clan_Member_Info& new_member);
+//////////////////// Menu
+void Display_Menu();
+int Get_selection();
+//////////////////// Actions
+void Add_New_Player_To_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
+void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 
+//////////////////// Additions
+void Display_All_Members_Warriors(std::vector<Clan_Member_Info>& clan_Warriors);
+void Display_All_Members_Knight(std::vector<Clan_Member_Info>& clan_Knights);
+float Damage_Of_Clan(std::vector<Clan_Member_Info>& clan);
+void Show_Damage_Of_Clans(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 int main() {
 
-
+	///////////////////////////////////////////// Clans
 	std::vector<Clan_Member_Info> clan_Warriors;
-
 	std::vector<Clan_Member_Info> clan_Knights;
 	
+	//////////////////////////////////////////// Add members to Warriors
+	Clan_Member_Info Steve = Precreate_Clan_Member("Steve", 0, 120, 12, 4);
+	AddMemberToClan(clan_Warriors, clan_Knights, Steve);
+	Clan_Member_Info Kitnis = Precreate_Clan_Member("Kitnis", 0, 100, 15, 2);
+	AddMemberToClan(clan_Warriors, clan_Knights, Kitnis);
+	Clan_Member_Info Ronin_01 = Precreate_Clan_Member("Ronin_01", 0, 150, 20, 1);
+	AddMemberToClan(clan_Warriors, clan_Knights, Ronin_01);
 
+	//////////////////////////////////////////// Add members to Knights
+	Clan_Member_Info Stela = Precreate_Clan_Member("Stela", 1, 120, 11, 2);
+	AddMemberToClan(clan_Warriors, clan_Knights, Stela);
+	Clan_Member_Info Stepan = Precreate_Clan_Member("Stepan", 1, 160, 21, 3);
+	AddMemberToClan(clan_Warriors, clan_Knights, Stepan);
+	Clan_Member_Info Filli = Precreate_Clan_Member("Filli", 1, 180, 15, 5);
+	AddMemberToClan(clan_Warriors, clan_Knights, Filli);
+
+	///////////////////////////////////////////// Main logic
+	int selection{0};
+
+	do
+	{
+		Display_Menu();
+		selection = Get_selection();
+		switch (selection)
+		{
+		case 0: 
+			// add new a player to the battle
+
+			Add_New_Player_To_Clan(clan_Warriors, clan_Knights);
+			break;
+		case 1:
+			// remove a player from combat
+
+			break;
+		case 2:
+			// fight
+			break;
+		case 3:
+			// see all players
+			break;
+		case 4:
+			// exit
+			break;
+	
+		default:
+			break;
+		}
+
+	} while (selection != 5);
 
 	return 0;
 }
@@ -62,18 +121,20 @@ Clan_Member_Info InputData() {
 	std::cin >> damage_type_index;
 
 	EDamageType damageType = (EDamageType)damage_type_index;
+	Clan.damageType = damageType_index(damage_type_index);
 
 	return Clan;
 }
 
-Clan_Member_Info Precreate_Clan_Member(std::string& clan_name_new, int class_number_new, float clan_health_new, float clan_damage_new,int damageType_new)
+Clan_Member_Info Precreate_Clan_Member(std::string clan_member_name_new, int class_number_new, float clan_health_new, float clan_damage_new,int damageType_new)
 {
 	Clan_Member_Info Clan;
-	Clan.clan_member_name = clan_name_new;
+	Clan.clan_member_name = clan_member_name_new;
 	Clan.clan_number = class_number_new;
 	Clan.clan_member_health = clan_health_new;
 	Clan.clan_member_damage = clan_damage_new;
 	Clan.damageType = damageType_index(damageType_new);
+
 	return Clan;
 }
 
@@ -99,6 +160,94 @@ void AddMemberToClan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<C
 		std::cout << "No clan with this ID" << std::endl;
 	}
 }
+
+void Display_Menu()
+{ 
+	std::cout << " --------- Welcome to Clan Battles-------- " << std::endl;
+	std::cout << " 0  - add a player to the battle" << std::endl;
+	std::cout << " 1  - remove a player from combat" << std::endl;
+	std::cout << " 2  - fight" << std::endl;
+	std::cout << " 3  - see all players" << std::endl;
+	std::cout << " 4  - exit" << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+}
+
+int Get_selection()
+{
+	int selection{};
+	std::cout << "Enter your choice : " << selection;
+
+	return selection;
+}
+
+void Add_New_Player_To_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
+{
+
+	std::cout << "Hello new player. Please enter your details below " << std::endl;
+
+	Clan_Member_Info new_member = InputData();
+	AddMemberToClan(clan_Warriors, clan_Knights, new_member);
+}
+
+void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
+{
+
+}
+
+void Display_All_Members_Warriors(std::vector<Clan_Member_Info>& clan_Warriors)
+{
+	std::cout << " --- Members of Warriors Clan --- " << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+
+	for (auto& member : clan_Warriors)
+	{
+		std::cout << "Name: " << member.clan_member_name << std::endl;
+		std::cout << "Health: " << member.clan_member_health << std::endl;
+		std::cout << "Damage: " << member.clan_member_damage << std::endl;
+		std::cout << "Damage Type: " << member.damageType << std::endl;
+		std::cout << "-----------------------------" << std::endl;
+	}
+
+}
+
+void Display_All_Members_Knight(std::vector<Clan_Member_Info>& clan_Knights)
+{
+	std::cout << " --- Members of Knights Clan --- " << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+
+	for (auto& member : clan_Knights)
+	{
+		std::cout << "Name: " << member.clan_member_name << std::endl;
+		std::cout << "Health: " << member.clan_member_health << std::endl;
+		std::cout << "Damage: " << member.clan_member_damage << std::endl;
+		std::cout << "Damage Type: " << member.damageType << std::endl;
+		std::cout << "-----------------------------" << std::endl;
+	}
+}
+
+float Damage_Of_Clan(std::vector<Clan_Member_Info>& clan)
+{
+	float total_damage{ 0 };
+	for (size_t i = 0; i < clan.size(); i++)
+	{
+		total_damage += clan[i].clan_member_damage;
+	}
+	return total_damage;
+}
+
+void Show_Damage_Of_Clans(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
+{
+	std::cout << " --- Damage --- " << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+
+	std::cout << " Amount of Knights damages: " << Damage_Of_Clan(clan_Knights) << std::endl;
+	std::cout << std::endl;
+
+	std::cout << " Amount of Warriors damages: " << Damage_Of_Clan(clan_Warriors) << std::endl;
+	std::cout << std::endl;
+}
+
+
 
 
 
