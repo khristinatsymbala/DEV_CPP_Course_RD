@@ -41,8 +41,6 @@ void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector
 
 
 void Display_All_Members(std::vector<Clan_Member_Info>& clan);
-void Display_All_Members_Warriors(std::vector<Clan_Member_Info>& clan_Warriors);
-void Display_All_Members_Knight(std::vector<Clan_Member_Info>& clan_Knights);
 float Damage_Of_Clan(std::vector<Clan_Member_Info>& clan);
 
 
@@ -92,6 +90,7 @@ int main() {
 			break;
 		case 3:
 			// see all players
+			All_Players_Stats(clan_Warriors, clan_Knights);
 			break;
 		case 4:
 			// exit
@@ -101,7 +100,7 @@ int main() {
 			break;
 		}
 
-	} while (selection != 5);
+	} while (selection != 4);
 
 	return 0;
 }
@@ -109,17 +108,17 @@ int main() {
 Clan_Member_Info InputData() {
 	Clan_Member_Info Clan;
 
-	std::cout << "Enter Clan Name: ";
+	std::cout << "Enter Your Name: ";
 	std::cin >> Clan.clan_member_name;
 
 	std::cout << "Select Clan : (0 - Warriors, 1 - Knights)";
 	std::cin >> Clan.clan_number;
 
 
-	std::cout << "Enter Clan Health: ";
+	std::cout << "Enter Your Health: ";
 	std::cin >> Clan.clan_member_health;
 
-	std::cout << "Enter Clan Damage: ";
+	std::cout << "Enter Your Damage: ";
 	std::cin >> Clan.clan_member_damage;
 
 	int damage_type_index = 0;
@@ -183,6 +182,8 @@ int Get_selection()
 	int selection{};
 	std::cout << "Enter your choice : " << selection;
 
+	std::cin >> selection;
+
 	return selection;
 }
 
@@ -215,36 +216,7 @@ void Display_All_Members(std::vector<Clan_Member_Info>& clan)
 	}
 }
 
-void Display_All_Members_Warriors(std::vector<Clan_Member_Info>& clan_Warriors)
-{
-	std::cout << " --- Members of Warriors Clan --- " << std::endl;
-	std::cout << "-------------------------------------------" << std::endl;
 
-	for (auto& member : clan_Warriors)
-	{
-		std::cout << "Name: " << member.clan_member_name << std::endl;
-		std::cout << "Health: " << member.clan_member_health << std::endl;
-		std::cout << "Damage: " << member.clan_member_damage << std::endl;
-		std::cout << "Damage Type: " << member.damageType << std::endl;
-		std::cout << "-----------------------------" << std::endl;
-	}
-
-}
-
-void Display_All_Members_Knight(std::vector<Clan_Member_Info>& clan_Knights)
-{
-	std::cout << " --- Members of Knights Clan --- " << std::endl;
-	std::cout << "-------------------------------------------" << std::endl;
-
-	for (auto& member : clan_Knights)
-	{
-		std::cout << "Name: " << member.clan_member_name << std::endl;
-		std::cout << "Health: " << member.clan_member_health << std::endl;
-		std::cout << "Damage: " << member.clan_member_damage << std::endl;
-		std::cout << "Damage Type: " << member.damageType << std::endl;
-		std::cout << "-----------------------------" << std::endl;
-	}
-}
 
 float Damage_Of_Clan(std::vector<Clan_Member_Info>& clan)
 {
@@ -258,7 +230,7 @@ float Damage_Of_Clan(std::vector<Clan_Member_Info>& clan)
 
 void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
 {
-	std::cout << " ---Knights --- " << std::endl;
+	std::cout << " --- Members of Knights Clan --- " << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
 
 	Display_All_Members(clan_Knights);
