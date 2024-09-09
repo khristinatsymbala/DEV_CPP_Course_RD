@@ -32,15 +32,21 @@ void AddMemberToClan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<C
 //////////////////// Menu
 void Display_Menu();
 int Get_selection();
+
+
 //////////////////// Actions
 void Add_New_Player_To_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
+void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 
-//////////////////// Additions
+
+void Display_All_Members(std::vector<Clan_Member_Info>& clan);
 void Display_All_Members_Warriors(std::vector<Clan_Member_Info>& clan_Warriors);
 void Display_All_Members_Knight(std::vector<Clan_Member_Info>& clan_Knights);
 float Damage_Of_Clan(std::vector<Clan_Member_Info>& clan);
-void Show_Damage_Of_Clans(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
+
+
+
 int main() {
 
 	///////////////////////////////////////////// Clans
@@ -194,6 +200,21 @@ void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::
 
 }
 
+
+
+void Display_All_Members(std::vector<Clan_Member_Info>& clan)
+{
+	
+	for (auto& member : clan)
+	{
+		std::cout << "Name: " << member.clan_member_name << std::endl;
+		std::cout << "Health: " << member.clan_member_health << std::endl;
+		std::cout << "Damage: " << member.clan_member_damage << std::endl;
+		std::cout << "Damage Type: " << member.damageType << std::endl;
+		std::cout << "-----------------------------" << std::endl;
+	}
+}
+
 void Display_All_Members_Warriors(std::vector<Clan_Member_Info>& clan_Warriors)
 {
 	std::cout << " --- Members of Warriors Clan --- " << std::endl;
@@ -235,13 +256,20 @@ float Damage_Of_Clan(std::vector<Clan_Member_Info>& clan)
 	return total_damage;
 }
 
-void Show_Damage_Of_Clans(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
+void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
 {
-	std::cout << " --- Damage --- " << std::endl;
+	std::cout << " ---Knights --- " << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
+
+	Display_All_Members(clan_Knights);
 
 	std::cout << " Amount of Knights damages: " << Damage_Of_Clan(clan_Knights) << std::endl;
 	std::cout << std::endl;
+
+	std::cout << " --- Members of Warriors Clan --- " << std::endl;
+	std::cout << "-------------------------------------------" << std::endl;
+
+	Display_All_Members(clan_Warriors);
 
 	std::cout << " Amount of Warriors damages: " << Damage_Of_Clan(clan_Warriors) << std::endl;
 	std::cout << std::endl;
