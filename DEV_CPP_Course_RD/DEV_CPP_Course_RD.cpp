@@ -75,17 +75,17 @@ int main() {
 	//////////////////////////////////////////// Add members to Warriors
 	Clan_Member_Info Steve = Precreate_Clan_Member("Steve", 0, 120, 12, 4);
 	AddMemberToClan(clan_Warriors, clan_Knights, Steve);
-	Clan_Member_Info Kitnis = Precreate_Clan_Member("Kitnis", 0, 100, 15, 2);
+	Clan_Member_Info Kitnis = Precreate_Clan_Member("Kitnis", 0, 100, 20, 2);
 	AddMemberToClan(clan_Warriors, clan_Knights, Kitnis);
-	Clan_Member_Info Ronin_01 = Precreate_Clan_Member("Ronin_01", 0, 150, 20, 1);
+	Clan_Member_Info Ronin_01 = Precreate_Clan_Member("Ronin_01", 0, 150, 35, 1);
 	AddMemberToClan(clan_Warriors, clan_Knights, Ronin_01);
 
 	//////////////////////////////////////////// Add members to Knights
-	Clan_Member_Info Stela = Precreate_Clan_Member("Stela", 1, 120, 11, 2);
+	Clan_Member_Info Stela = Precreate_Clan_Member("Stela", 1, 120, 34, 2);
 	AddMemberToClan(clan_Warriors, clan_Knights, Stela);
-	Clan_Member_Info Stepan = Precreate_Clan_Member("Stepan", 1, 160, 21, 3);
+	Clan_Member_Info Stepan = Precreate_Clan_Member("Stepan", 1, 160, 23, 3);
 	AddMemberToClan(clan_Warriors, clan_Knights, Stepan);
-	Clan_Member_Info Filli = Precreate_Clan_Member("Filli", 1, 180, 15, 5);
+	Clan_Member_Info Filli = Precreate_Clan_Member("Filli", 1, 180, 12, 5);
 	AddMemberToClan(clan_Warriors, clan_Knights, Filli);
 
 	///////////////////////////////////////////// Main logic
@@ -118,7 +118,7 @@ int main() {
 			break;
 		case 4:
 			// exit
-
+			std::cout << "Thank u for a Game!! " << std::endl;
 			break;
 	
 		default:
@@ -241,13 +241,11 @@ void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::
 	Remove_Player(clan_number, player_index, clan_Warriors, clan_Knights);
 }
 
-
 void Display_All_Members(std::vector<Clan_Member_Info>& clan)
 {
-	
+	int index = 0;
 	for (auto& member : clan)
 	{
-		int index = 0;
 		std::cout << std::endl;
 		std::cout << "Number: " << index << std::endl;
 		std::cout << "Name: " << member.clan_member_name << std::endl;
@@ -349,29 +347,27 @@ void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member
 			clan_Knights[i].clan_member_health = ProcessDamage(clan_Knights[i].clan_member_health, clan_Warriors[a].clan_member_damage, clan_Warriors[a].damageType);
 			clan_Warriors[a].clan_member_health = ProcessDamage(clan_Warriors[a].clan_member_health, clan_Knights[i].clan_member_damage, clan_Knights[i].damageType);
 
+			
 			if (clan_Knights[i].clan_member_health <= 0) {
 				Remove_Player(clan_Knights[i].clan_number, i, clan_Warriors, clan_Knights);
 				i--;
 				break;
 			}
 			else if (clan_Warriors[a].clan_member_health <= 0) {
-				Remove_Player(clan_Warriors[a].clan_number, i, clan_Warriors, clan_Knights);
+				Remove_Player(clan_Warriors[a].clan_number, a, clan_Warriors, clan_Knights);
 				a--;
 				break;
 			}
 			
-
+			
 			total_health_Knights = Total_Health_Of_Clan(clan_Knights);
 			total_health_Warriors = Total_Health_Of_Clan(clan_Warriors);
 
-			std::cout << " The player health: " << clan_Knights[i].clan_member_health << "Clan total health: " << total_health_Knights << std::endl;
-			std::cout << " The player health: " << clan_Warriors[a].clan_member_health << "Clan total health: " << total_health_Warriors << std::endl;
+			std::cout << " The player health: " << clan_Knights[i].clan_member_health << "  Clan total health: " << total_health_Knights << std::endl;
+			std::cout << " The player health: " << clan_Warriors[a].clan_member_health << "  Clan total health: " << total_health_Warriors << std::endl;
 		}
 		
 	}
-
-	//std::cout << "Total health of Knights after fight: " << total_health_Knights << std::endl;
-	//std::cout << "Total health of Warriors after fight: " << total_health_Warriors << std::endl;
 
 	if (total_health_Knights > 0 && total_health_Warriors <= 0)
 	{
@@ -400,7 +396,7 @@ void Remove_Player(int clan_number, int player_index, std::vector<Clan_Member_In
 	else if (clan_number == 1) {
 		if (player_index >= 0 && player_index < clan_Knights.size()) {
 			std::cout << "Removing " << clan_Knights[player_index].clan_member_name << " from Warriors." << std::endl;
-			clan_Warriors.erase(clan_Knights.begin() + player_index);
+			clan_Knights.erase(clan_Knights.begin() + player_index);
 		}
 		else {
 			std::cout << "Invalid player index." << std::endl;
