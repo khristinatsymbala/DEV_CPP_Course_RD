@@ -305,7 +305,7 @@ float Total_Health_Of_Clan(std::vector<Clan_Member_Info>& clan)
 	float total_health{0};
 	for (size_t i = 0; i < clan.size(); i++)
 	{
-		total_health += clan[i].clan_member_damage;
+		total_health += clan[i].clan_member_health;
 	}
 	return total_health;
 }
