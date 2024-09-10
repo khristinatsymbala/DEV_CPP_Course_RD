@@ -369,15 +369,29 @@ void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member
 		
 	}
 
+
 	if (total_health_Knights > 0 && total_health_Warriors <= 0)
 	{
+		std::cout << std::endl;
 		std::cout << "Congratulation to Knights" << std::endl;
 	}
 	else if (total_health_Warriors > 0 && total_health_Knights <= 0) {
+		std::cout << std::endl;
 		std::cout << "Congratulation to Warriors" << std::endl;
 	}
 	else if (total_health_Warriors <= 0 && total_health_Knights <= 0) {
+		std::cout << std::endl;
 		std::cout << "No one to Win" << std::endl;
+	}
+	else if (total_health_Warriors > 0 && total_health_Knights > 0) {
+		if (total_health_Warriors > total_health_Knights) {
+			std::cout << std::endl;
+			std::cout << "Congratulation to Warriors" << std::endl;
+		}
+		else if (total_health_Knights > total_health_Warriors) {
+			std::cout << std::endl;
+			std::cout << "Congratulation to Knights" << std::endl;
+		}
 	}
 }
 
