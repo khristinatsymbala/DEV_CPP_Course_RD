@@ -56,7 +56,7 @@ void Add_New_Player_To_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::v
 void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
-
+void Remove_Player(int clan_number,int player_index, std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 
 //////////////////// Additional func
 void Display_All_Members(std::vector<Clan_Member_Info>& clan);
@@ -104,7 +104,7 @@ int main() {
 			break;
 		case 1:
 			// remove a player from combat
-
+			Remove_Player_From_Clan(clan_Warriors, clan_Knights);
 			break;
 		case 2:
 			// fight
@@ -229,7 +229,16 @@ void Add_New_Player_To_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::v
 
 void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
 {
+	int player_index{ 0 };
+	int clan_number{ 0 };
 
+	std::cout << " PPlease enter the clan index of the player you want to remove? ";
+	std::cin >> clan_number;
+
+	std::cout << " Please enter the player index you want to remove? ";
+	std::cin >> player_index;
+
+	Remove_Player(clan_number, player_index, clan_Warriors, clan_Knights);
 }
 
 
@@ -340,6 +349,18 @@ void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member
 			clan_Knights[i].clan_member_health = ProcessDamage(clan_Knights[i].clan_member_health, clan_Warriors[a].clan_member_damage, clan_Warriors[a].damageType);
 			clan_Warriors[a].clan_member_health = ProcessDamage(clan_Warriors[a].clan_member_health, clan_Knights[i].clan_member_damage, clan_Knights[i].damageType);
 
+			if (clan_Knights[i].clan_member_health <= 0) {
+				Remove_Player(clan_Knights[i].clan_number, i, clan_Warriors, clan_Knights);
+				i--;
+				break;
+			}
+			else if (clan_Warriors[a].clan_member_health <= 0) {
+				Remove_Player(clan_Warriors[a].clan_number, i, clan_Warriors, clan_Knights);
+				a--;
+				break;
+			}
+			
+
 			total_health_Knights = Total_Health_Of_Clan(clan_Knights);
 			total_health_Warriors = Total_Health_Of_Clan(clan_Warriors);
 
@@ -363,6 +384,36 @@ void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member
 		std::cout << "No one to Win" << std::endl;
 	}
 }
+
+void Remove_Player(int clan_number, int player_index, std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights)
+{
+	if (clan_number == 0) 
+	{
+		if (player_index >= 0 && player_index < clan_Warriors.size()) {
+			std::cout << "Removing " << clan_Warriors[player_index].clan_member_name << " from Warriors." << std::endl;
+			clan_Warriors.erase(clan_Warriors.begin() + player_index);
+		}
+		else {
+			std::cout << "Invalid player index." << std::endl;
+		}
+	}
+	else if (clan_number == 1) {
+		if (player_index >= 0 && player_index < clan_Knights.size()) {
+			std::cout << "Removing " << clan_Knights[player_index].clan_member_name << " from Warriors." << std::endl;
+			clan_Warriors.erase(clan_Knights.begin() + player_index);
+		}
+		else {
+			std::cout << "Invalid player index." << std::endl;
+		}
+	}
+	else {
+		std::cout << "Invalid clan index." << std::endl;
+	}
+	
+}
+
+
+
 
 
 
