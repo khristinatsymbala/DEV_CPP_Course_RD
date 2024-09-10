@@ -5,6 +5,22 @@
 #include <vector>
 #include <algorithm>
 
+
+/*
+На завтра:
+	доробити ремув з клану  - зробити універсальне для використання ще у блоці файтингу
+	мені потрібен індекс та клан 
+	чекінг чи його здоров'я не впало нижче 0 
+
+	подумати над резістами - якось вони мали б працювати 
+	подумати над варіантом кріт удару
+
+	Заготовка:
+	std::cout << std::endl;
+	std::cout <<"  "<< std::endl;
+
+*/
+
 enum EDamageType {
 	Water = 1,
 	Fire,
@@ -29,6 +45,7 @@ Clan_Member_Info InputData();
 Clan_Member_Info Precreate_Clan_Member(std::string clan_member_name_new, int class_number_new, float clan_health_new, float clan_damage_new, int damageType_new);
 EDamageType damageType_index(int damage_type_index);
 void AddMemberToClan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights, Clan_Member_Info& new_member);
+
 //////////////////// Menu
 void Display_Menu();
 int Get_selection();
@@ -40,9 +57,12 @@ void Remove_Player_From_Clan(std::vector<Clan_Member_Info>& clan_Warriors, std::
 void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member_Info>& clan_Knights);
 
+
+//////////////////// Additional func
 void Display_All_Members(std::vector<Clan_Member_Info>& clan);
 float Total_Damage_Of_Clan(std::vector<Clan_Member_Info>& clan);
-
+float ProcessDamage(float current_health, float damage_received, EDamageType damage_type);
+float Modify_Damage(float damage_received, EDamageType damage_type);
 float Total_Health_Of_Clan(std::vector<Clan_Member_Info>& clan);
 
 
@@ -89,13 +109,16 @@ int main() {
 		case 2:
 			// fight
 
+			Fight(clan_Warriors, clan_Knights);
 			break;
 		case 3:
 			// see all players
+
 			All_Players_Stats(clan_Warriors, clan_Knights);
 			break;
 		case 4:
 			// exit
+
 			break;
 	
 		default:
@@ -170,13 +193,19 @@ void AddMemberToClan(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<C
 
 void Display_Menu()
 { 
+	std::cout << std::endl;
+	std::cout << std::endl;
 	std::cout << " --------- Welcome to Clan Battles-------- " << std::endl;
+	std::cout << std::endl;
 	std::cout << " 0  - add a player to the battle" << std::endl;
 	std::cout << " 1  - remove a player from combat" << std::endl;
 	std::cout << " 2  - fight" << std::endl;
 	std::cout << " 3  - see all players" << std::endl;
 	std::cout << " 4  - exit" << std::endl;
+	std::cout << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
+	std::cout << std::endl; 
+	std::cout << std::endl;
 }
 
 int Get_selection()
@@ -210,12 +239,14 @@ void Display_All_Members(std::vector<Clan_Member_Info>& clan)
 	for (auto& member : clan)
 	{
 		int index = 0;
+		std::cout << std::endl;
 		std::cout << "Number: " << index << std::endl;
 		std::cout << "Name: " << member.clan_member_name << std::endl;
 		std::cout << "Health: " << member.clan_member_health << std::endl;
 		std::cout << "Damage: " << member.clan_member_damage << std::endl;
 		std::cout << "Damage Type: " << member.damageType << std::endl;
 		std::cout << "-----------------------------" << std::endl;
+		std::cout << std::endl;
 		index++;
 	}
 }
@@ -228,6 +259,38 @@ float Total_Damage_Of_Clan(std::vector<Clan_Member_Info>& clan)
 		total_damage += clan[i].clan_member_damage;
 	}
 	return total_damage;
+}
+
+float ProcessDamage(float current_health, float damage_received, EDamageType damage_type)
+{
+	return current_health - Modify_Damage(damage_received, damage_type);
+}
+
+float Modify_Damage(float damage_received, EDamageType damage_type)
+{
+
+	switch (damage_type)
+	{
+	case EDamageType::Water:
+		return damage_received * 2;
+		break;
+	case EDamageType::Fire:
+		return damage_received * 3;
+		break;
+	case EDamageType::Earth:
+		return damage_received;
+		break;
+	case EDamageType::Wind:
+		return damage_received / 2;
+		break;
+	case EDamageType::Magic:
+		return damage_received * 3;
+		break;
+	default:
+		return damage_received;
+		break;
+
+	}
 }
 
 float Total_Health_Of_Clan(std::vector<Clan_Member_Info>& clan)
@@ -244,6 +307,7 @@ void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector
 {
 	std::cout << " --- Members of Knights Clan --- " << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
+	std::cout << std::endl;
 
 	Display_All_Members(clan_Knights);
 
@@ -252,6 +316,7 @@ void All_Players_Stats(std::vector<Clan_Member_Info>& clan_Warriors, std::vector
 
 	std::cout << " --- Members of Warriors Clan --- " << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
+	std::cout << std::endl;
 
 	Display_All_Members(clan_Warriors);
 
@@ -266,20 +331,26 @@ void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member
 
 	for (size_t i = 0; i < clan_Knights.size(); i++)
 	{
-		for (size_t a = 0; i < clan_Warriors.size(); a++)
+		for (size_t a = 0; a < clan_Warriors.size(); a++)
 		{
-			clan_Knights[i].clan_member_health -= clan_Warriors[a].clan_member_damage;
-			clan_Warriors[a].clan_member_health -= clan_Knights[i].clan_member_damage;
+			std::cout << " The fight is now!!! " << std::endl;
+			std::cout << clan_Knights[i].clan_member_name << " VS " << clan_Warriors[a].clan_member_name << std::endl;
+			std::cout <<  std::endl;
+
+			clan_Knights[i].clan_member_health = ProcessDamage(clan_Knights[i].clan_member_health, clan_Warriors[a].clan_member_damage, clan_Warriors[a].damageType);
+			clan_Warriors[a].clan_member_health = ProcessDamage(clan_Warriors[a].clan_member_health, clan_Knights[i].clan_member_damage, clan_Knights[i].damageType);
 
 			total_health_Knights = Total_Health_Of_Clan(clan_Knights);
 			total_health_Warriors = Total_Health_Of_Clan(clan_Warriors);
 
+			std::cout << " The player health: " << clan_Knights[i].clan_member_health << "Clan total health: " << total_health_Knights << std::endl;
+			std::cout << " The player health: " << clan_Warriors[a].clan_member_health << "Clan total health: " << total_health_Warriors << std::endl;
 		}
 		
 	}
 
-	std::cout << "Total health of Knights after fight: " << total_health_Knights << std::endl;
-	std::cout << "Total health of Warriors after fight: " << total_health_Warriors << std::endl;
+	//std::cout << "Total health of Knights after fight: " << total_health_Knights << std::endl;
+	//std::cout << "Total health of Warriors after fight: " << total_health_Warriors << std::endl;
 
 	if (total_health_Knights > 0 && total_health_Warriors <= 0)
 	{
@@ -292,11 +363,6 @@ void Fight(std::vector<Clan_Member_Info>& clan_Warriors, std::vector<Clan_Member
 		std::cout << "No one to Win" << std::endl;
 	}
 }
-
-
-
-
-
 
 
 
