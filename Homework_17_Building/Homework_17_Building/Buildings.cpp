@@ -1,20 +1,38 @@
 #include"Buildings.h"
 
+int Buildings::sID = 0;
+
 Buildings::Buildings()
 {
-
+	ID = SetID();
+	MaxAge = 50;
+	Initial_Cost = 1000;
+	currentCost = Initial_Cost;
 }
 
 Buildings::Buildings(int MaxAge1, int InitialCost1)
 {
+	ID = SetID();
 	MaxAge = MaxAge1;
 	Initial_Cost = InitialCost1;
+	currentCost = InitialCost1;
+}
+
+int Buildings::SetID()
+{
+	return sID++;
 }
 
 // ѕовертаЇ поточну варт≥сть буд≥вл≥. 
 // ≤з кожним роком варт≥сть буд≥вл≥ зменшуЇтьс€ л≥н≥йно: 0 рок≥в Ц initial cost, MaxAge рок≥в Ц 0$, MaxAge/2 Ц InitialCost/2
 int Buildings::GetCost()
 {
+	if (currentAge > MaxAge) {
+		std::cout << "The building is out of service" << std::endl;
+		return 0;
+	}
+
+	currentCost = Initial_Cost - Initial_Cost * ((MaxAge / 2) - (Initial_Cost / 2)); // RE DO
 	return currentCost;
 }
 
@@ -27,6 +45,7 @@ void Buildings::ToAge(int years)
 	}
 	else {
 		currentAge += years;
+		GetCost();
 	}
 }
 
@@ -34,5 +53,5 @@ void Buildings::ToAge(int years)
 // ѕриватна функц≥€, €ка в консоль пов≥домить буд≥вл€ ≥з €ким id була знищена
 void Buildings::Destroy()
 {
-	
+	std::cout << "Building with ID " << ID << " has been destroyed." << std::endl;
 }

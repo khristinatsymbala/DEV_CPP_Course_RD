@@ -11,11 +11,13 @@ public:
 		std::cout << "Building " << ID << " is destroyed!" << std::endl;
 	}
 
+	int SetID();
 
 	int GetCost();
 	void ToAge(int years);
 private:
 	int ID{ 0 };
+	static int sID;
 
 	int MaxAge{ 0 };
 	int currentAge{ 0 };
