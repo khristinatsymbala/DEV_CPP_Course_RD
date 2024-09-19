@@ -28,11 +28,11 @@ int Buildings::SetID()
 int Buildings::GetCost()
 {
 	if (currentAge > MaxAge) {
-		std::cout << "The building is out of service" << std::endl;
+		Destroy();
 		return 0;
 	}
 
-	currentCost = Initial_Cost - Initial_Cost * ((MaxAge / 2) - (Initial_Cost / 2)); // RE DO
+	currentCost = (MaxAge / 2) - (Initial_Cost / 2); // RE DO
 	return currentCost;
 }
 
