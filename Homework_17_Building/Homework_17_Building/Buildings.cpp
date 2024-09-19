@@ -23,6 +23,11 @@ int Buildings::SetID()
 	return sID++;
 }
 
+int Buildings::GetID()
+{
+	return ID;
+}
+
 // ѕовертаЇ поточну варт≥сть буд≥вл≥. 
 // ≤з кожним роком варт≥сть буд≥вл≥ зменшуЇтьс€ л≥н≥йно: 0 рок≥в Ц initial cost, MaxAge рок≥в Ц 0$, MaxAge/2 Ц InitialCost/2
 int Buildings::GetCost()

@@ -12,6 +12,7 @@ public:
 	}
 
 	int SetID();
+	int GetID();
 
 	int GetCost();
 	void ToAge(int years);
