@@ -15,6 +15,7 @@ public:
 
 	int GetCost();
 	void ToAge(int years);
+
 private:
 	int ID{ 0 };
 	static int sID;
