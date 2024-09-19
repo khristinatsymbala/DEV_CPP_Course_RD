@@ -32,7 +32,7 @@ int Buildings::GetCost()
 		return 0;
 	}
 
-	currentCost = (MaxAge / 2) - (Initial_Cost / 2); // RE DO
+	currentCost = Initial_Cost * (currentAge / MaxAge);
 	return currentCost;
 }
 
@@ -40,11 +40,12 @@ int Buildings::GetCost()
 // Якщо будівля зістарилась більше, ніж її максимальний вік, то вона повинна викликати приватну функцію Destroy();
 void Buildings::ToAge(int years)
 {
-	if (currentAge + years > MaxAge) {
+	currentAge += years;
+
+	if (currentAge > MaxAge) {
 		Destroy();
 	}
 	else {
-		currentAge += years;
 		GetCost();
 	}
 }
