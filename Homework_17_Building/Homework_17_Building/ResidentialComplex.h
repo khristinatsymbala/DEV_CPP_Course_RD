@@ -11,6 +11,8 @@ public:
 
 	void AddBuilding(std::unique_ptr<Buildings> building);
 	void ListBuildings();
+	void RemoveBuilding(int BuildID);
+
 private:
 	std::vector < std::unique_ptr<Buildings>> buildings;
 	std::string Name;
