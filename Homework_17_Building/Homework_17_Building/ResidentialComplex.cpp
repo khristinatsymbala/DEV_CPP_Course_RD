@@ -4,6 +4,11 @@ ResidentialComplex::ResidentialComplex()
 {
 }
 
+ResidentialComplex::ResidentialComplex(std::string NameComplex)
+	:Name(NameComplex)
+{
+}
+
 ResidentialComplex::~ResidentialComplex()
 {
 	std::cout << "ResidentialComplex with name" << Name << " has been destroyed." << std::endl;
@@ -32,4 +37,9 @@ void ResidentialComplex::RemoveBuilding(int BuildID)
 		}
 	}
 	std::cout << "Building with ID " << BuildID << " not found." << std::endl;
+}
+
+std::string ResidentialComplex::GetName()
+{
+	return Name;
 }
