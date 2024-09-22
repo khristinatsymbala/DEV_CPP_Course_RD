@@ -1,0 +1,26 @@
+ // Homework_19.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+/*
+Створити базовий клас Персонажа Character із методами
+void SetWeapon(unique_ptr<Weapon> weapon); видає зброю персонажу
+Weapon* GetWeapon() const; дає змогу дізнатися, що за вепон у персонажа
+
+
+Створити базовий клас Weapon із двома абстрактними методами
+float GetDamage() = 0; повертає значення шкоди зброї
+string GetName() = 0; повертає назву зброї
+
+
+Створити хоча б 3 класи-нащадки різних видів зброї
+Завдання із зірочкою:
+Переробити клас персонажа таким чином, що персонаж може мати у себе декілька екземплярів зброї, але тільки одна (або жодна) може бути обрана
+
+*/
+#include <iostream>
+
+int main()
+{
+   
+}
+

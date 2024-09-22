@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "ResidentialComplex.h"
+#include <memory>
 
 ///////////////////////////////////////////// Prototype func
 //////////////////// Menu
@@ -9,17 +10,34 @@ void Display_Residential_Complex_Menu();
 int Get_selection();
 
 //////////////////// Menu Actions
+void HandleResidentialComplex(ResidentialComplex& complex);
 
 int main() {
     ///////////////////////////////////////////// ResidentialComplex
     ResidentialComplex NewEngland("NewEngland");
     ResidentialComplex Smarahdovyi("Smarahdovyi");
 
-    //////////////////////////////////////////// Add members to NewEngland
+    int selection{ 0 };
 
-    //////////////////////////////////////////// Add members to Smarahdovyi
+    while (true) {
+        int selection = Display_Main_Menu(NewEngland, Smarahdovyi);
+        if (selection == 1) {
+            std::cout << "\nYou selected Residential " << NewEngland.GetName() <<std::endl;
+            HandleResidentialComplex(NewEngland);
+        }
+        else if (selection == 2) {
+            std::cout << "\nYou selected Residential " << Smarahdovyi.GetName() << std::endl;
+            HandleResidentialComplex(Smarahdovyi);
+        }
+        else if (selection == 3) {
+            std::cout << "Exit";
+        }
+        else {
+            std::cout << "Invalid choice, please try again"<< std::endl;
+        }
+    }
 
-	return 0;
+    return 0;
 }
 
 int Display_Main_Menu(ResidentialComplex& first, ResidentialComplex& second)
@@ -49,4 +67,31 @@ int Get_selection()
     std::cin >> selection;
 
     return selection;
+}
+
+void HandleResidentialComplex(ResidentialComplex& complex)
+{
+    do
+    {
+        Display_Residential_Complex_Menu();
+            int selection = Get_selection();
+            if (selection == 1) {
+                int Age = 120;
+                int cost = 2456;
+                complex.AddBuilding();
+            }
+            else if (selection == 2){
+                complex.ListBuildings();
+            }
+            else if (selection == 3) {
+                break;
+            }
+            else
+            {
+                std::cout << "Invalid choice, please try again"<<std::endl;
+            }
+            
+
+    } while (false);
+    
 }

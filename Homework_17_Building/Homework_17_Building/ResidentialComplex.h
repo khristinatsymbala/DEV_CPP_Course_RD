@@ -10,7 +10,7 @@ public:
 	ResidentialComplex(std::string NameComplex);
 	~ResidentialComplex();
 
-	void AddBuilding(std::unique_ptr<Buildings> building);
+	void AddBuilding();
 	void ListBuildings();
 	void RemoveBuilding(int BuildID);
 
