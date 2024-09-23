@@ -16,6 +16,8 @@ public:
 
 	std::string GetName();
 
+	std::unique_ptr<Buildings> GetBuildingByID(int buildingID);
+
 private:
 	std::vector < std::unique_ptr<Buildings>> buildings;
 	std::string Name;

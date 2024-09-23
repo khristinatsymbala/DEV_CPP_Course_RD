@@ -14,10 +14,6 @@ ResidentialComplex::~ResidentialComplex()
 	std::cout << "ResidentialComplex with name" << Name << " has been destroyed." << std::endl;
 }
 
-//void ResidentialComplex::AddBuilding(std::unique_ptr<Buildings> building)
-//{ buildings.push_back(building);
-//}
-
 
 void ResidentialComplex::AddBuilding()
 {
@@ -31,7 +27,7 @@ void ResidentialComplex::AddBuilding()
 	std::cin >> iniCost;
 
 	std::unique_ptr<Buildings> newBuilding = std::make_unique<Buildings>(maxAge, iniCost);
-	buildings.push_back(newBuilding);
+	buildings.push_back(std::move(newBuilding));
 	
 }
 
@@ -57,6 +53,9 @@ void ResidentialComplex::RemoveBuilding(int BuildID)
 		if ((*i)->GetID() == BuildID)
 		{
 			buildings.erase(i);
+
+			GetBuildingByID((*i)->GetID())->GetDestroy(); // € не впевнена що це правильно
+
 			std::cout << "Building with ID " << BuildID << " removed." << std::endl;
 			return;
 		}
@@ -68,3 +67,14 @@ std::string ResidentialComplex::GetName()
 {
 	return Name;
 }
+
+std::unique_ptr<Buildings> ResidentialComplex::GetBuildingByID(int buildingID)
+{
+	for (auto& building : buildings) {
+		if (building->GetID() == buildingID) {
+			return std::move(building);
+		}
+	}
+	return nullptr;
+}
+

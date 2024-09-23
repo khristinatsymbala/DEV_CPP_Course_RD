@@ -1,6 +1,6 @@
 #include"Buildings.h"
 
-int Buildings::sID = 0;
+int Buildings::sID = 1;
 
 Buildings::Buildings()
 {
@@ -30,14 +30,15 @@ int Buildings::GetID()
 
 // ѕовертаЇ поточну варт≥сть буд≥вл≥. 
 // ≤з кожним роком варт≥сть буд≥вл≥ зменшуЇтьс€ л≥н≥йно: 0 рок≥в Ц initial cost, MaxAge рок≥в Ц 0$, MaxAge/2 Ц InitialCost/2
-int Buildings::GetCost()
-{
-	if (currentAge > MaxAge) {
+int Buildings::GetCost() {
+	if (currentAge >= MaxAge) {
 		Destroy();
 		return 0;
 	}
+	else {
+		currentCost = (Initial_Cost * (MaxAge - currentAge)) / MaxAge;
+	}
 
-	currentCost = Initial_Cost * (currentAge / MaxAge);
 	return currentCost;
 }
 
@@ -53,6 +54,11 @@ void Buildings::ToAge(int years)
 	else {
 		GetCost();
 	}
+}
+
+void Buildings::GetDestroy()
+{
+	Destroy();
 }
 
 
