@@ -16,34 +16,34 @@ public:
 	virtual void SetHealth(float newHealth) = 0;
 };
 
-class Spawner
-{
-public:
-	Spawner(Monster* prototype)
-		:prototype_{ prototype } 
-	{}
-	~Spawner() {}
-
-	Monster* spawnMonster() {
-		return prototype_->clone();
-	}
-
-private:
-	Monster* prototype_;
-};
-
-//class Spawner {
+//class Spawner
+//{
 //public:
-//	Spawner(std::unique_ptr<Monster> prototype)
-//		: prototype_(std::move(prototype)) {}
+//	Spawner(Monster* prototype)
+//		:prototype_{ prototype } 
+//	{}
+//	~Spawner() {}
 //
-//	std::unique_ptr<Monster> spawnMonster() {
+//	Monster* spawnMonster() {
 //		return prototype_->clone();
 //	}
 //
 //private:
-//	std::unique_ptr<Monster> prototype_;
+//	Monster* prototype_;
 //};
+
+class Spawner {
+public:
+	Spawner(std::unique_ptr<Monster> prototype)
+		: prototype_(std::move(prototype)) {}
+
+	std::unique_ptr<Monster> spawnMonster() {
+		return prototype_->clone();
+	}
+
+private:
+	std::unique_ptr<Monster> prototype_;
+};
 
 class Slime : public Monster {
 public:
