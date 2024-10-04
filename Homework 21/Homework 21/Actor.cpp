@@ -44,15 +44,19 @@ void Character::GainXP(int Xp_enemy)
 void Character::Fight(Enemy* monster)
 {
     float damage = GetWeapon()->GetDamage();
+    
+    monster->ApplyDamage(damage);
+    std::cout << "You attack the " << monster->GetName() << " with your " << GetWeapon()->GetName()
+        << ", " << damage << " damage. Monster HP: " << monster->GetHealth() << std::endl;
+
+
     ApplyDamage(monster->Atack());
     //SetHealth(GetHealth() - monster->GetDamage());
 
     std::cout << monster->GetName() << " hits you for " << monster->GetDamage()
         << " damage. Your HP: " << GetHealth() << std::endl;
 
-    monster->ApplyDamage(damage);
-    std::cout << "You attack the " << monster->GetName() << " with your " << GetWeapon()->GetName()
-        << ", " << damage << " damage. Monster HP: " << monster->GetHealth() << std::endl;
+    
     
     if (monster->GetHealth() < 0) {
         std::cout << "You defeated the " << monster->GetName() << std::endl;

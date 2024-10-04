@@ -17,8 +17,6 @@ int main()
     Character hero("Valera", 0, 100.0f);
     Character hero2("Igor", 0, 100.0f);
 
-    hero.Notify();
-    hero2.Notify();
 
     hero.SetWeapon(std::make_unique<Sword>());
     hero.SetWeapon(std::make_unique<Halberd>());
@@ -39,6 +37,8 @@ int main()
     else {
         std::cout << "No weapon equipped." << std::endl;
     }
+
+    hero.Notify();
 
     std::cout << "5 Slime appear on your way" << std::endl;
     std::cout << "What will you do?" << std::endl;
