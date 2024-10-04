@@ -55,7 +55,12 @@ public:
 		if (newHealth >= 0) {
 			health = newHealth;
 		}
+		for (IHealthUpdateReceiver* receiver : subscribers)
+		{
+			receiver->ReceiveNewHealth(health);
+		}
 	}
+	std::string GetName() { return name; }
 
 	void Fight(Enemy* monster);
 

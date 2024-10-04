@@ -14,8 +14,8 @@ int main()
     std::cout << "You are entering a dark forest filled with dangers." << std::endl;
     std::cout << "You meet another person and you decide to team up." << std::endl;
 
-    Character hero("Hero", 0, 100.0f);
-    Character hero2("Hero", 0, 100.0f);
+    Character hero("Valera", 0, 100.0f);
+    Character hero2("Igor", 0, 100.0f);
 
     hero.SetWeapon(std::make_unique<Sword>());
     hero.SetWeapon(std::make_unique<Halberd>());
@@ -55,24 +55,59 @@ int main()
 
 
     if (choice == 1) {
-        while (hero.IsAlive() && hero2.IsAlive()) {
-
+       
+        std::vector< std::unique_ptr<Enemy>> slimes;
+        
             for (int i = 0; i < 5; i++) {
-
                 std::unique_ptr<Enemy> slime_ = slimeSpawner->spawnMonster();
+                slimes.push_back(std::move(slime_));
 
-               Character target = (rand() % 2 == 0) ? hero : hero2;
+            Character* target = slimes[i]->ChooseTarget(&hero, &hero2);
 
-                if (hero.GetHealth() <= 50) { target = hero; }
-                else if (hero2.GetHealth() <= 50) { target = hero2; }
-
-                target.Fight(slime_.get());
-
+            while (slimes[i]->GetHealth() > 0) {
+              target->Fight(slimes[i].get());
+            
+              target = slimes[i]->ChooseTarget(&hero, &hero2);
             }
+                }
 
+    } else if (choice == 0) {
+            std::cout << "You ran away safely" << std::endl;
+            return 0;
         }
-    }
-}
+        /*std::cout <<  std::endl;
+        std::cout << std::endl;
+        std::cout << "You pass further and see a beautiful meadow" << std::endl;
+        std::cout << "Little bunnies are playing on it" << std::endl;
+        std::cout << "At one point, the light dims and one of the bunnies is pierced by an arrow. Other animals get scared and run away" << std::endl;
+        std::cout << "A trio of goblins emerges from the bushes opposite" << std::endl;
+        std::cout << std::endl;
+        std::cout << "What will you do?" << std::endl;
+        std::cout << "1. Fight monsters; 2. Run away." << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
+
+        int newchoice;
+        std::cin >> newchoice;
+
+        std::unique_ptr<Enemy> goblinPrototype = std::make_unique<Goblin>(goblin);
+        std::unique_ptr <Spawner> goblinSpawner = std::make_unique<Spawner>(std::move(goblinPrototype));
+
+        if (newchoice == 1) {
+            for (int i = 0; i < 3; i++) {
+                
+                    std::unique_ptr<Enemy> goblin_ = goblinSpawner->spawnMonster();
+
+                    Character* target = (rand() % 2 == 0) ? &hero : &hero2;
+
+                    if (hero.GetHealth() <= 50) { target = &hero; }
+                    else if (hero2.GetHealth() <= 50) { target = &hero2; }
+
+                    target->Fight(goblin_.get());
+                
+            }
+        }*/
+} 
 
 /*
 Загальна ідея перенести там ту домашку сюди та використати патерн саме на реагування по здоров'ю
@@ -84,3 +119,4 @@ int main()
 
 Плюс переробити як він сказав спавнер та клас - додати копіювальний конструктор
 */
+
