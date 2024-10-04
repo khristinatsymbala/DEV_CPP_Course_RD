@@ -18,7 +18,12 @@ private:
 class Character : public Actor, public IHealthNotifier, public IDamagable
 {
 public:
-
+	void Notify() {
+		for (IHealthUpdateReceiver* receiver : subscribers)
+		{
+			receiver->ReceiveNewHealth(health);
+		}
+	}
 	virtual void ApplyDamage(float damage) {
 		health -= damage;
 		//проходимось по масиву та відсилаємо нове здоров'я

@@ -17,6 +17,9 @@ int main()
     Character hero("Valera", 0, 100.0f);
     Character hero2("Igor", 0, 100.0f);
 
+    hero.Notify();
+    hero2.Notify();
+
     hero.SetWeapon(std::make_unique<Sword>());
     hero.SetWeapon(std::make_unique<Halberd>());
 
@@ -48,6 +51,7 @@ int main()
     //Goblin goblin;
 
     hero.Subscribe(&slime);
+    hero2.Subscribe(&slime);
     //hero.Subscribe(&goblin);
 
     std::unique_ptr<Enemy> slimePrototype = std::make_unique<Slime>(slime);
@@ -64,12 +68,12 @@ int main()
 
             Character* target = slimes[i]->ChooseTarget(&hero, &hero2);
 
-            while (slimes[i]->GetHealth() > 0) {
+            while (slimes[i]->GetHealth() > 0 && target->GetHealth() > 0) {
               target->Fight(slimes[i].get());
             
               target = slimes[i]->ChooseTarget(&hero, &hero2);
             }
-                }
+            }
 
     } else if (choice == 0) {
             std::cout << "You ran away safely" << std::endl;
