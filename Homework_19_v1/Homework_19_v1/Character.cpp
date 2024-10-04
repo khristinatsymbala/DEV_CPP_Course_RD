@@ -68,3 +68,19 @@ void Character::GainXP(int Xp_enemy)
 //
 //    //delete monster;
 //}
+
+std::cout << monster->GetName() << " hits you for " << monster->GetDamage()
+<< " damage. Your HP: " << hero.GetHealth() << std::endl;
+
+monster->SetHealth(monster->GetHealth() - damage);
+std::cout << "You attack the " << monster->GetName() << " with your " << hero.GetWeapon()->GetName()
+<< ", " << damage << " damage. Monster HP: " << monster->GetHealth() << std::endl;
+
+
+if (monster->GetHealth() < 0) {
+    std::cout << "You defeated the " << monster->GetName() << std::endl;
+    hero.GainXP(monster->GetXP());
+}
+else if (hero.GetHealth() <= 0) {
+    std::cout << "You have been defeated!" << std::endl;
+}
